@@ -40,3 +40,54 @@ func main() {
 
 Save it as `main.go`. The name "main" could be anything, but its important
 that the extension of all the source code you write is ".go".
+
+From the left side-bar, select the debug section, and press "Run and Debug".
+
+## Variables
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var message string = "Hello, world!"
+
+	fmt.Println(message)
+}
+```
+
+## Printf
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var name string = "Alice"
+    fmt.Printf("Hello %s", name)
+}
+```
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var name string = "Alice"
+    fmt.Printf("Hello %s\n", name)
+}
+```
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var answer int = 29 + 13
+    fmt.Printf("The answer is %d\n", answer)
+}
+```
