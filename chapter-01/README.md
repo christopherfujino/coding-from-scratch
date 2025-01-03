@@ -24,11 +24,20 @@ Code extensions from authors who you trust.
 Once you've verified the author of the extension, you can press the "Install"
 button.
 
-Each Go program needs to have its own directory. Create a new directory named `01`.
+Create a new directory (or folder) to hold all of your Go source code, called
+something like `go_source`.
 
-Type the following program:
+For each lesson, create a new directory under it, such as `lesson_01`.
+
+Each Go program needs to have its own directory. For each exercise in this
+lesson, create a new directory, such as `exercise_01`.
+
+In the directory `go_source/lesson_01/exercise_01`, Create a new text file and
+type the following program:
 
 ```go
+// lesson_01/exercise_01
+
 package main
 
 import "fmt"
@@ -43,9 +52,21 @@ that the extension of all the source code you write is ".go".
 
 From the left side-bar, select the debug section, and press "Run and Debug".
 
+`func main()` defines a new function named `main`. You can do two things with
+a function:
+
+1. Define it
+2. Call it
+
+The `main` function is special. Every program must have exactly one `main`
+program. When the program starts, the `main` function is called, and when the
+`main` function is finished, the program finishes.
+
 ## Variables
 
 ```go
+// lesson_01/exercise_02
+
 package main
 
 import "fmt"
@@ -56,6 +77,12 @@ func main() {
 	fmt.Println(message)
 }
 ```
+
+You can do three things with a variable:
+
+1. Declare it - give it a name and a type
+2. Assign it - give it a value
+3. Reference it - retrieve the value from it
 
 ## Printf
 
