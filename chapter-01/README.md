@@ -87,17 +87,8 @@ You can do three things with a variable:
 ## Printf
 
 ```go
-package main
+// lesson_01/exercise_03
 
-import "fmt"
-
-func main() {
-    var name string = "Alice"
-    fmt.Printf("Hello %s", name)
-}
-```
-
-```go
 package main
 
 import "fmt"
@@ -109,6 +100,8 @@ func main() {
 ```
 
 ```go
+// lesson_01/exercise_04
+
 package main
 
 import "fmt"
