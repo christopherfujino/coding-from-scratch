@@ -126,6 +126,9 @@ The numbers that come after some of the numeric types represents how many
 is, in memory, it is either a 1 or a 0.
 
 ---
-| |
+|Go type|Size in bits|Value range|Number of possible values|
+|--|--|--|--|
+|`int8`|8|-128 to 127|256 (2 ^ 8)|
+---
 
 ## Exercise 2 - Arithmetic
