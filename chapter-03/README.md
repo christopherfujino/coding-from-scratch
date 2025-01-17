@@ -60,11 +60,38 @@ is the value that is currently in the variable `x`?
 
 **Write a program to verify your theory.**
 
+**What about for some of the other data types you learned in the previous
+lesson?**
+
+You can declare multiple variables in a single statement, like:
+
+```go
+var x, y = 1, 2
+var firstName, lastName string
+```
+
+These examples are not particularly useful, and its often easier to read your
+code if each declaration was on its own line. However, later on, when you call
+functions that return multiple values, you will need to do this, for example:
+
+```go
+// Read more about this function at https://pkg.go.dev/bufio@go1.23.5#Reader.ReadString
+var line, err = reader.ReadString('\n')
+```
+
+The function `ReadString` *might* fail, so it returns two values: the first is
+a `string`, and the second is an `error`. We will learn more about error
+handling in a future lesson, but what is important here is that it is often
+necessary to declare more than one variable in a single statement.
+
 ## Re-assignment
 
-Note that the following program will lead to a compiler error:
+We've already seen that when we declare a variable, we have the option to
+assign it a value or not. However, when you declare a variable isn't the only
+time you can assign it a value. An important aspect of variables are that you
+can re-assign them at (almost) any time you want.
 
-```
+```go
 // chapter-03/exercise-01/main.go
 
 package main
@@ -72,12 +99,31 @@ package main
 import "fmt"
 
 func main() {
-    var x
-    x = 1
+    var greetingCount = 0
+
+    fmt.Println("Hello user!")
+    greetingCount = greetingCount + 1
+
+    fmt.Println("Hello user!")
+    greetingCount = greetingCount + 1
+
+    fmt.Println("Hello user!")
+    greetingCount = greetingCount + 1
+
+    fmt.Printf("You were greeted %d times!\n", greetingCount)
 }
 ```
 
-**Why?**
+Notice that in the statement `greetingCount = greetingCount + 1` we are both
+*referencing* the variable `greetingCount` and re-assigning it. From this
+single line, the compiler will actually generate multiple steps for computer's
+processor to do. These process instructions will look something roughly like:
+
+1. Look up the value currently being stored in the variable `greetingCount`.
+2. Add `1` to that value, and store in a temporary place (called a *register*).
+3. Take that value you calculated and were storing temporarily in the previous
+step, and store it back in the variable `greetingCount` (and overwriting the
+previous value).
 
 ## Constants
 
