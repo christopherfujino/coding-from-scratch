@@ -58,7 +58,7 @@ In our fourth example, `var x int`, note that we do not assign `x` a value.
 Remember that variables are "buckets" that store values. So what do you think
 is the value that is currently in the variable `x`?
 
-> Write a program to verify your theory.
+**Write a program to verify your theory.**
 
 ## Re-assignment
 
@@ -77,7 +77,7 @@ func main() {
 }
 ```
 
-Why?
+**Why?**
 
 ## Constants
 
