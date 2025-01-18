@@ -58,10 +58,10 @@ In our fourth example, `var x int`, note that we do not assign `x` a value.
 Remember that variables are "buckets" that store values. So what do you think
 is the value that is currently in the variable `x`?
 
-**Write a program to verify your theory.**
+**Exercise 1: Write a program to verify your theory.**
 
-**What about for some of the other data types you learned in the previous
-lesson?**
+**Exercise 2: What about for some of the other data types you learned in the
+previous lesson?**
 
 You can declare multiple variables in a single statement, like:
 
@@ -92,7 +92,7 @@ time you can assign it a value. An important aspect of variables are that you
 can re-assign them at (almost) any time you want.
 
 ```go
-// chapter-03/exercise-01/main.go
+// chapter-03/exercise-03/main.go
 
 package main
 
@@ -125,6 +125,6 @@ processor to do. These process instructions will look something roughly like:
 step, and store it back in the variable `greetingCount` (and overwriting the
 previous value).
 
-## Constants
-
-## Global Variables
+What's important to remember from this, is that in an *assignment statement*,
+the right-hand side of the `=` is evaluated by the processor *first*, and then
+the resulting value is stored in the variable on the left.
