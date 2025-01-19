@@ -127,6 +127,11 @@ Use the stdlib function `rand.Int()` from `math/rand` to generate a random
 integer, and then print a message explaining if the number is even or odd.
 
 <details>
+<summary>Hint</summary>
+Think back to chapter-02/exercise-02 on arithmetic.
+</details>
+
+<details>
 <summary>Solution</summary>
 ```go
 
