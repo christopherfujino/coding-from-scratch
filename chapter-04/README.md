@@ -35,6 +35,7 @@ following table shows the different **comparison operators** that Go has:
 |`!=`|Are two values not equal (the opposite of `==`)?|`"Yes" != "yes" // true`|
 |`>`|Is the value on the left greater than the value on the right?|`2.0 > 2.0 // false`|
 |`>=`|Is the value on the left greater than or equal to the value on the right?|`2.0 >= 2.0 // true`|
+|`<`|Is the value on the left less than the value on the right?|`2.0 < 2.0 // false`|
 |`<=`|Is the value on the left less than or equal to the value on the right?|`2.0 <= 2.0 // true`|
 
 ## Logical Operators
