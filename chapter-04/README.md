@@ -105,6 +105,22 @@ following table shows the different **comparison operators** that Go has:
 |`<`|Is the value on the left less than the value on the right?|`2.0 < 2.0 // false`|
 |`<=`|Is the value on the left less than or equal to the value on the right?|`2.0 <= 2.0 // true`|
 
+```go
+package main
+
+import "fmt"
+
+func main() {
+    condition := "Yes" == "yes"
+
+    if condition {
+        fmt.Println("Strings in Go are NOT case sensitive")
+    } else {
+        fmt.Println("Strings in Go ARE case sensitive")
+    }
+}
+```
+
 ## Logical Operators
 
 Sometimes the condition that you care about is the combination of multiple
