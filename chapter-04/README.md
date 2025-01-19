@@ -121,6 +121,11 @@ var isEligible = isEighteen && isCitizen
 var exceptionalAccount = moreThan100k || lessThan100
 ```
 
+## Project
+
+Use the stdlib function `rand.Int()` from `math/rand` to generate a random
+integer, and then print a message explaining if the number is even or odd.
+
 <details>
 <summary>Solution</summary>
 ```go
