@@ -34,6 +34,6 @@ func main() {
 If you guessed that this program would print "One of my favorite colors is
 blue", then you made a very good, intuitive and yet wrong guess.
 
-|--|--|
+|--|--|--|--|
 |Index|0|1|2|
 |Value|"blue"|"green"|"yellow"|
