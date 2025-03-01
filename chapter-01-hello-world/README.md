@@ -111,3 +111,10 @@ func main() {
     fmt.Printf("The answer is %d\n", answer)
 }
 ```
+
+
+## Questions
+
+What is a package?
+
+Does fmt.Println live inside package main?
