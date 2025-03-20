@@ -1,0 +1,14 @@
+{{ define "main" }}
+
+<h1>Posts</h1>
+{{ with .Site.GetPage "/posts" }}
+  {{ range .Pages }}
+    <p>
+      <a href="{{ .RelPermalink }}">
+        <span>{{ .File.BaseFileName }}</span>
+      </a>
+    </p>
+  {{ end }}
+{{ end }}
+
+{{ end }}

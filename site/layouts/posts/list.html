@@ -1,0 +1,28 @@
+<!--
+  Cribbed from
+  https://github.com/christopherfujino/teach-me-to-code/blob/master/blog/layouts/posts/list.html
+-->
+{{ define "main" }}
+
+<h1>$ ls content/blog -l</h1>
+<table class=ls-l-table>
+  {{ range .Pages.ByPublishDate.Reverse }}
+    <tr>
+      <td>-rw-r--r--</td>
+      <td>1</td>
+      <td>chris</td>
+      <td>chris</td>
+      <td style="text-align: right"><span>
+        {{ $file := os.Stat .File }}
+        {{ $fileInfo := $file.FileInfo }}
+        {{ $fileInfo.Size }}
+      </span></td>
+      <td>{{ .Date.Format "Jan" }}</td>
+      <td>{{ .Date.Format "02" }}</td>
+      <td>{{ .Date.Format "2006" }}</td>
+      <!-- https://gohugo.io/functions/strings/replacere/ -->
+      <td><a href="{{ .RelPermalink }}"><span>{{ replaceRE `^[0-9]+-[0-9]+-[0-9]+-` "" .File.LogicalName }}</span></a></td>
+    </tr>
+  {{ end }}
+</table>
+{{ end }}

@@ -1,0 +1,11 @@
+# Used by server for caching
+resources
+# Build output
+public
+
+# Run ./bootstrap-assets.sh to populate
+static
+
+.hugo_build.lock
+
+*.swp*
