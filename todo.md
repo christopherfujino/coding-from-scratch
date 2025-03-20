@@ -1,3 +1,16 @@
+## Chapters
+
+1. Hello, world!
+2. Primitive Data Types
+3. Variables
+4. Conditional Branching
+5. Functions
+6. Arrays and Loops
+7. Slices
+8. Structs
+9. Maps
+10. Pointers
+
 ## Final Project
 
 Write a program that prompts the user for two numbers which will be typed into
