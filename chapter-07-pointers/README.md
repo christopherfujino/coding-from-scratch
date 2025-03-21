@@ -1,69 +1,6 @@
 # Pointers
 
-In the last section, we discussed how arrays are the simplest and most
-important data structure. One of the reasons why they are so important is
-because the way your computer organizes its Random Access Memory (RAM) is in
-an array data structure.
-
-The same way that a Go program has **variables** that are like buckets for
-storing **values** for your program, a computer has **addresses**
-
-Consider the following program:
-
-```go
-package main
-
-func main() {
-    var x uint8 = 0
-    var y uint8 = 10
-}
-```
-
-Where does your computer store the data for the variables `x` and `y`? One
-possible layout for the computer's memory while running this program could be:
-
-|Address|Value|Note|
-|--|--|--|
-|9|42|???|
-|10|0|`var x`|
-|11|10|`var y`|
-|12|0|???|
-
-In computer memory, each address references a byte (or 8 bits) of memory. Why
-doesn't each address point to each bit? We could build a computer system this
-way. However, we rarely want to access only 1 bit of data. It would be less
-efficient to find the data we want if we stored each bit of data at its own
-address. This means that in cases where we only want to store 1 bit of data,
-we will be wasting memory space because the smallest chunk of memory you can
-reserve is 1 byte. Why not address more than 1 byte at a time? Because there
-are many use cases in which having exactly 1 byte of data is useful, and
-if--for example--memory was addressed in 16-bit chunks, all of these uses of
-1 byte of data would take twice as much storage.
-
-Let's look again at the above diagram of our memory.
-The Go runtime stores the value for variable `x` (currently `0`) at
-address 10, and the value for `y` at address 11. Note that the addresses 9 and
-12 are not used by our Go code. They could be used by the Go runtime for its
-own housekeeping, or it could be used by another program running on the same
-computer, or it could be currently free.
-
-It's actually an important aspect of computer security that programs should
-only know about the memory addresses that have been given to them by the
-operating system. It would be a very dangerous security vulnerability if--for
-example--a computer game could read the memory that your browser is currently
-using to store the password you are typing in to your banking website.
-
-Also note that if you run this program again a second time, it's very likely
-the variable `x` will be stored at a different address. With modern operating
-systems, applications request a certain amount of data from the operating
-system (in our program, we ask for two 8-bit chunks of memory), and the
-operating system decides which free chunks of memory to give it access to. Or,
-if we ask for more memory than the system has available, an error will be
-thrown and your program will probably crash.
-
-With Go, we can write a program that will actually print out the addresses
-that the operating system gave us for each of our variables. The expression
-`&x` is read "the address of variable x." Type and run the following program:
+Before running this program, guess what it will do:
 
 ```go
 package main
@@ -71,12 +8,56 @@ package main
 import "fmt"
 
 func main() {
-    var x uint8 = 0
-    var y uint8 = 10
-    fmt.Printf("value of x = %d\n", x)
-    fmt.Printf("address of x = %d\n", &x)
-    fmt.Printf("value of y = %d\n", y)
-    fmt.Printf("address of y = %d\n", &y)
+	var x = 1
+	fmt.Println(x)
+	fun(x)
+	fmt.Println(x)
+}
+
+func fun(x int) {
+	x++
+}
+```
+
+Was your guess correct? Why does it print the same value twice, even though we
+increment the value of x inside of the `fun()` function?
+
+The answer is that the variable named `x` in function `main()` and the
+argument named `x` in function `fun()` are two separate buckets that just
+happen to share the same name (in Go code, anyway). The name `x` in
+Go code is just for the benefit of humans reading the code. We could change
+these variables to `bert` and `ernie`, and the compiler would (probably)
+generate the exact same machine code instructions. All the computer knows about
+when it is actually running your program (at least when it comes to finding
+these buckets that we call variables or arguments) are **memory addresses**.
+
+You can think of memory addresses like street addresses. Except, humans have
+created systems of organizing street addresses, like zip codes, streets,
+address numbers, and then sometimes unit numbers, in order to make it easier
+to sort and deliver mail.
+
+However, computers are really good at keeping track of large numbers, so
+memory addresses are just sequential numbers, each number referencing a byte
+(8 bits) of memory. Go has an operator `&`, which is pronounced "address-of
+operator" which will yield the actual address that the computer is storing the
+contents of a variable at. Type in and run the following program:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var x = 1
+	fmt.Printf("The value of x in main is %d\n", x)
+	fmt.Printf("The address of x in main is %d\n", &x)
+	fun(x)
+}
+
+func fun(x int) {
+	x++
+	fmt.Printf("The value of x in fun is %d\n", x)
+	fmt.Printf("The address of x in fun is %d\n", &x)
 }
 ```
 
@@ -84,13 +65,113 @@ As discussed before, you will almost certainly get different output for the
 addresses (the values must be the same, however). Here is one possible output:
 
 ```
-value of x = 0
-address of x = 1374390599690
-value of y = 10
-address of y = 1374390599691
+The value of x in main is 1
+The address of x in main is 824634843200
+The value of x in fun is 2
+The address of x in fun is 824634843208
 ```
 
 The addresses are very high, because the machine I ran this on has 16
 gigabytes of memory. This means it has
 [approximately](https://en.wikipedia.org/wiki/Byte#Multiple-byte_units) 16
 billion bytes of memory.
+
+Since we have two separate `x` buckets in our program, what happens when we
+call the function `fun(x)`? The Go runtime *copies* the value in our `main()`
+function's `x` bucket into the `fun()` function's `x` bucket. In nerdspeak,
+this is called "pass by value" or
+"[call by value](https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_value)."
+
+What happens if you want two functions to share the same bucket of memory?
+This is where a Go feature called **pointers** become useful. A pointer is a
+special variable that holds the address of *another* variable. Let's look at an
+updated version of our program:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var x = 1
+	fmt.Println(x)
+	fun(&x)
+	fmt.Println(x)
+}
+
+func fun(x *int) {
+	(*x)++
+}
+```
+
+First, note that type signature of our `fun()` function has slightly changed:
+
+```go
+func fun(x *int)
+```
+
+Here, `*int` means a pointer to an `int`. Next, note that when we call this
+function, we use the previously covered `&` address-of operator:
+
+```go
+fun(&x)
+```
+
+Now, instead of copying the value in the `x` variable to the `fun()` function,
+it instead looks up *where* the `x` variable is being stored, and passes that
+address to the `fun()` function.
+
+Finally, when we want to increment our variable in the `fun()` function, we
+put an `*` before the pointer name. This means "access the value in the
+storage pointed to, not the address":
+
+```go
+(*x)++
+```
+
+Here the parentheses are actually optional, but they were added for clarity.
+**First** we want to access the value `x` is pointing to, **then** we want to
+increment that value by 1. We could have also wrote this line like:
+
+```go
+*x = *x + 1
+```
+
+If we tried this without the `*` operators, like:
+
+```go
+x = x + 1
+```
+
+We would get the error:
+
+```
+./main.go:13:6: invalid operation: x + 1 (mismatched types *int and untyped int)
+```
+
+In Go, you cannot do arithmetic with memory addresses.
+
+## Scanf
+
+Let's look at a more real-world example of using pointers:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var name string
+
+	fmt.Printf("What is your name? ")
+	fmt.Scan(&name)
+	fmt.Printf("Hello %s!\n", name)
+}
+```
+
+The function [`fmt.Scan()`](https://pkg.go.dev/fmt#Scan) will read text in from
+standard in (also known as STDIN, this will usually be reading keyboard text
+from your terminal). There are a few quirks to this function (and the related
+functions `fmt.Scanf()` and `fmt.Scanln()`):
+
+* it takes one or more variable pointers as its arguments

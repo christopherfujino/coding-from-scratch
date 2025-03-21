@@ -3,11 +3,14 @@ package main
 import "fmt"
 
 func main() {
-    var x uint8 = 0
-    var y uint8 = 10
-    fmt.Printf("value of x = %d\n", x)
-    fmt.Printf("address of x = %v\n", &x)
-    fmt.Printf("value of y = %d\n", y)
-    fmt.Printf("address of y = %v\n", &y)
+	var x = 1
+	fmt.Printf("The value of x in main is %d\n", x)
+	fmt.Printf("The address of x in main is %d\n", &x)
+	fun(x)
 }
 
+func fun(x int) {
+	x++
+	fmt.Printf("The value of x in fun is %d\n", x)
+	fmt.Printf("The address of x in fun is %d\n", &x)
+}
