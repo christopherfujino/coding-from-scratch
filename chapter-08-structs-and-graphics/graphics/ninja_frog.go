@@ -5,27 +5,27 @@ import (
 	//image_color "image/color"
 )
 
-// Number of frames in the Ninja Frog animation
-const frames = 11
+// Number of IDLE_FRAME_COUNT in the Ninja Frog animation
+const IDLE_FRAME_COUNT = 11
 
 const MAX_SPEED = 20
-const IMAGE_PATH = "./assets/idle-32-32.png"
+const IMAGE_PATH = "./assets/ninja_frog/idle-32-32.png"
 var origin = rl.Vector2{X: 0, Y: 0}
 
-var image *rl.Image
-var texture rl.Texture2D
+var ninjaFrogImage *rl.Image
+var ninjaFrogTexture rl.Texture2D
 
 func CreateNinjaFrog() *NinjaFrog {
-	if image == nil {
-		image = rl.LoadImage(IMAGE_PATH)
-		texture = rl.LoadTextureFromImage(image)
+	if ninjaFrogImage == nil {
+		ninjaFrogImage = rl.LoadImage(IMAGE_PATH)
+		ninjaFrogTexture = rl.LoadTextureFromImage(ninjaFrogImage)
 	}
-	var frameWidth = texture.Width / frames
-	var frameHeight = texture.Height
+	var frameWidth = ninjaFrogTexture.Width / IDLE_FRAME_COUNT
+	var frameHeight = ninjaFrogTexture.Height
 	var position = rl.Vector2{X: 10, Y: 10}
 
 	return &NinjaFrog{
-		Texture:     texture,
+		Texture:     ninjaFrogTexture,
 		FrameWidth:  frameWidth,
 		FrameHeight: frameHeight,
 		FrameIndex:  0,
@@ -83,7 +83,7 @@ func (n *NinjaFrog) Render() {
 	rl.EndDrawing()
 
 	n.FrameIndex += 1
-	if n.FrameIndex >= frames {
+	if n.FrameIndex >= IDLE_FRAME_COUNT {
 		n.FrameIndex = 0
 	}
 }
