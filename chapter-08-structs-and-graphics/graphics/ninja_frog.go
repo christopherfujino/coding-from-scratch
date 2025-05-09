@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	rl "github.com/gen2brain/raylib-go/raylib"
 	//image_color "image/color"
 )
@@ -10,13 +8,12 @@ import (
 // Number of frames in the Ninja Frog animation
 const frames = 11
 
+const MAX_SPEED = 20
+const IMAGE_PATH = "./assets/idle-32-32.png"
+var origin = rl.Vector2{X: 0, Y: 0}
+
 var image *rl.Image
 var texture rl.Texture2D
-
-const MAX_SPEED = 20
-const IMAGE_PATH = "./tmp/idle-32-32.png"
-
-var origin = rl.Vector2{X: 0, Y: 0}
 
 func CreateNinjaFrog() *NinjaFrog {
 	if image == nil {
@@ -67,7 +64,6 @@ func (n *NinjaFrog) Render() {
 		n.Speed = max(n.Speed - ACCELERATION_MAGNITUDE, -MAX_SPEED)
 	}
 	n.Position.X += float32(n.Speed)
-	fmt.Printf("Speed: %v\tPosition: %v\n", n.Speed, n.Position.X)
 	var sourceRect = rl.Rectangle{
 		X:      float32(n.FrameWidth * n.FrameIndex),
 		Y:      0,
