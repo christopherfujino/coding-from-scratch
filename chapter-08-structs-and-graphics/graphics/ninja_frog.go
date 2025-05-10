@@ -13,25 +13,6 @@ const IMAGE_PATH = "./assets/ninja_frog/idle-32-32.png"
 var origin = rl.Vector2{X: 0, Y: 0}
 
 var ninjaFrogImage *rl.Image
-var ninjaFrogTexture rl.Texture2D
-
-func CreateNinjaFrog() *NinjaFrog {
-	if ninjaFrogImage == nil {
-		ninjaFrogImage = rl.LoadImage(IMAGE_PATH)
-		ninjaFrogTexture = rl.LoadTextureFromImage(ninjaFrogImage)
-	}
-	var frameWidth = ninjaFrogTexture.Width / IDLE_FRAME_COUNT
-	var frameHeight = ninjaFrogTexture.Height
-	var position = rl.Vector2{X: 10, Y: 10}
-
-	return &NinjaFrog{
-		Texture:     ninjaFrogTexture,
-		FrameWidth:  frameWidth,
-		FrameHeight: frameHeight,
-		FrameIndex:  0,
-		Position:    position,
-	}
-}
 
 type NinjaFrog struct {
 	Texture     rl.Texture2D
@@ -40,6 +21,25 @@ type NinjaFrog struct {
 	FrameIndex  int32
 	Position    rl.Vector2
 	Speed       int
+}
+
+func CreateNinjaFrog() *NinjaFrog {
+	var texture rl.Texture2D
+	if ninjaFrogImage == nil {
+		ninjaFrogImage = rl.LoadImage(IMAGE_PATH)
+	}
+	texture = rl.LoadTextureFromImage(ninjaFrogImage)
+	var frameWidth = texture.Width / IDLE_FRAME_COUNT
+	var frameHeight = texture.Height
+	var position = rl.Vector2{X: 10, Y: 10}
+
+	return &NinjaFrog{
+		Texture:     texture,
+		FrameWidth:  frameWidth,
+		FrameHeight: frameHeight,
+		FrameIndex:  0,
+		Position:    position,
+	}
 }
 
 const DECELERATION_MAGNITUDE = 3
