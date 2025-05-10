@@ -9,7 +9,8 @@ import (
 const IDLE_FRAME_COUNT = 11
 
 const MAX_SPEED = 20
-const IMAGE_PATH = "./assets/ninja_frog/idle-32-32.png"
+const NINJA_FROG_IMAGE = "./assets/ninja_frog/idle-32-32.png"
+
 var origin = rl.Vector2{X: 0, Y: 0}
 
 var ninjaFrogImage *rl.Image
@@ -26,7 +27,7 @@ type NinjaFrog struct {
 func CreateNinjaFrog() *NinjaFrog {
 	var texture rl.Texture2D
 	if ninjaFrogImage == nil {
-		ninjaFrogImage = rl.LoadImage(IMAGE_PATH)
+		ninjaFrogImage = rl.LoadImage(NINJA_FROG_IMAGE)
 	}
 	texture = rl.LoadTextureFromImage(ninjaFrogImage)
 	var frameWidth = texture.Width / IDLE_FRAME_COUNT
@@ -58,10 +59,10 @@ func (n *NinjaFrog) Render() {
 		}
 	}
 	if rl.IsKeyDown(rl.KeyL) {
-		n.Speed = min(n.Speed + ACCELERATION_MAGNITUDE, MAX_SPEED)
+		n.Speed = min(n.Speed+ACCELERATION_MAGNITUDE, MAX_SPEED)
 	}
 	if rl.IsKeyDown(rl.KeyH) {
-		n.Speed = max(n.Speed - ACCELERATION_MAGNITUDE, -MAX_SPEED)
+		n.Speed = max(n.Speed-ACCELERATION_MAGNITUDE, -MAX_SPEED)
 	}
 	n.Position.X += float32(n.Speed)
 	var sourceRect = rl.Rectangle{
@@ -72,7 +73,6 @@ func (n *NinjaFrog) Render() {
 	}
 
 	var destinationRect = rl.Rectangle{
-		// Should this use position?!
 		X:      n.Position.X * scale,
 		Y:      n.Position.Y * scale,
 		Width:  float32(n.FrameWidth * scale),
