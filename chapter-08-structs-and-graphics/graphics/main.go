@@ -7,9 +7,9 @@ import (
 const size int32 = 32
 const width = 1600
 const height = 960
-const fps = 60
+const fps = 30
 
-const scale = 2
+const scale = 3
 
 const rotation = 0
 
@@ -32,5 +32,6 @@ func main() {
 		for _, element := range elements {
 			element.Render()
 		}
+		rl.EndDrawing()
 	}
 }
