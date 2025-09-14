@@ -19,7 +19,6 @@ type Element interface {
 
 func main() {
 	rl.InitWindow(width, height, "Ninja Frog")
-	//rl.ToggleFullscreen()
 	rl.SetTargetFPS(fps)
 
 	var elements = []Element{

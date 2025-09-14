@@ -1,0 +1,15 @@
+{
+    "targets": [
+        {
+            "template": "README.tmpl.md",
+            "output": "README.md",
+            "inputs": [
+                "exercise-01/main.go",
+                "exercise-02/main.go",
+                "exercise-03/main.go",
+                "exercise-04/main.go",
+                "exercise-05/main.go"
+            ]
+        }
+    ]
+}
